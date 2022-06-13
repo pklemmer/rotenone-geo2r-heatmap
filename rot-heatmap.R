@@ -22,16 +22,17 @@ colnames(df) <- c("Genesymbol", "xp1", "xp2", "xp3")
 rownames(df) <- make.names(df[,1], unique = TRUE)
 xpmatrix <- as.matrix(df[2:4])
 df<-melt(xpmatrix)
-colnames(df) <- c("Gene","dataset","logFC")
+colnames(df) <- c("Genes","Dataset","logFC")
   #Making a dataframe that can be used with ggplot2
 library(ggplot2)
-rotheatmap <- ggplot(df, aes(x = dataset, y = Gene, fill = logFC)) +
+rotheatmap <- ggplot(df, aes(x = Dataset, y = Genes, fill = logFC)) +
   geom_tile()+
   scale_fill_gradient2(low = "#0000ff",
                        mid = "#ffffff",
                        high = "#ff0000",
                        limits=c(-0.26,0.26),
-                       breaks=seq(-0.26,0.26,by=0.13))
+                       breaks=seq(-0.26,0.26,by=0.13))+
+  theme(axis.text.y = element_blank())
 rotheatmap=rotheatmap
 install.packages("svglite")
 library(svglite)
